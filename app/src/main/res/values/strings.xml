@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Unsplash</string>
+    <string name="input_hint_text">Введите текст поиска</string>
+    <string name="text_button_exit">Выход</string>
+    <string name="text_button_search">Поиск</string>
+    <string name="text_button_back">Назад</string>
+</resources>

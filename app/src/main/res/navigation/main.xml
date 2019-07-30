@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main"
+    app:startDestination="@id/inputFragment">
+
+    <fragment
+        android:id="@+id/inputFragment"
+        android:name="com.unsplash.client.fragment.InputFragment"
+        android:label="InputFragment" />
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.unsplash.client.fragment.ResultFragment"
+        android:label="ResultFragment" />
+</navigation>
