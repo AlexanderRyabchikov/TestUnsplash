@@ -3,6 +3,7 @@ package com.unsplash.client.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +14,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.unsplash.client.R;
 import com.unsplash.client.fragment.injectors.PhotoInjector;
 import com.unsplash.client.network.Api.Api;
+import com.unsplash.client.network.response.ApiError;
 
 import net.idik.lib.slimadapter.SlimAdapter;
 import net.idik.lib.slimadapter.SlimAdapterEx;
+
+import java.net.UnknownHostException;
 
 import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
@@ -56,7 +60,7 @@ public class ResultFragment extends AbstractFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(this::showLoading)
                 .doOnEach(notification -> hideLoading())
-                .subscribe(photoModels -> adapter.updateData(photoModels)));
+                .subscribe(photoModels -> adapter.updateData(photoModels), this::handleError));
 
     }
 
@@ -106,5 +110,30 @@ public class ResultFragment extends AbstractFragment {
                 .content(R.string.dialog_loading_content)
                 .cancelable(false)
                 .build();
+    }
+
+    private void handleError(Throwable throwable){
+
+        if (throwable instanceof ApiError) {
+            ApiError apiError = (ApiError) throwable;
+
+            switch (apiError.getCode()) {
+                case 404:
+                    Toast.makeText(getContext(), R.string.dialog_server_is_not_available, Toast.LENGTH_LONG).show();
+                    getActivity().finish();
+                    return;
+                case 401:
+                    Toast.makeText(getContext(), R.string.dialog_not_authorized, Toast.LENGTH_LONG).show();
+                    return;
+            }
+
+            String message = apiError.getDescription();
+            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        } else if (throwable instanceof UnknownHostException) {
+            Toast.makeText(getContext(), R.string.common_no_internet_connection, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 }
