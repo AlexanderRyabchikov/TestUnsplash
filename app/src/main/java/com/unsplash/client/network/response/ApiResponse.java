@@ -4,7 +4,12 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import rx.Observable;
+
 public class ApiResponse<T> {
+
+    @SerializedName("error")
+    private ApiError error;
 
     @Nullable
     @SerializedName("results")
@@ -20,4 +25,11 @@ public class ApiResponse<T> {
     }
 
 
+    public Observable<ApiResponse<T>> handleError() {
+        if (isSuccess()) {
+            return Observable.just(this);
+        } else {
+            return Observable.error(error);
+        }
+    }
 }

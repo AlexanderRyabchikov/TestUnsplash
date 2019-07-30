@@ -15,6 +15,7 @@ public class Api {
         return ApiFactory
                 .getApiPhotos()
                 .getPhotos(query)
+                .flatMap(ApiResponse::handleError)
                 .map(ApiResponse::getData);
 
     }
