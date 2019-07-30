@@ -4,4 +4,8 @@
     <string name="text_button_exit">Выход</string>
     <string name="text_button_search">Поиск</string>
     <string name="text_button_back">Назад</string>
+    <string name="message_exit">Для выхода нажмите еще раз назад</string>
+
+    <string name="dialog_loading_title">Загрузка данных</string>
+    <string name="dialog_loading_content">Пожалуйста, подождите…</string>
 </resources>

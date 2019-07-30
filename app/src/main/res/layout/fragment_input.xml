@@ -6,13 +6,14 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginTop="@dimen/margin_top_edit_text"
+        android:layout_marginLeft="@dimen/margin_side_edit_text"
+        android:layout_marginRight="@dimen/margin_side_edit_text"
         android:hint="@string/input_hint_text"
         android:textColorHint="@color/hint_text_color"
         android:textColor="@color/colorPrimary"
         android:id="@+id/input_search_data"
+        android:outlineSpotShadowColor="@color/colorPrimary"
         android:textCursorDrawable="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -29,7 +30,7 @@
             android:layout_weight="1"
             android:text="@string/text_button_exit"
             android:layout_margin="@dimen/margin_for_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <Button
@@ -37,7 +38,7 @@
             android:layout_weight="1"
             android:text="@string/text_button_search"
             android:layout_margin="@dimen/margin_for_button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

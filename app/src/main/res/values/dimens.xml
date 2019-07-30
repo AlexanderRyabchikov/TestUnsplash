@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_for_button">40dp</dimen>
+    <dimen name="margin_for_button">20dp</dimen>
     <dimen name="margin_for_recycler">50dp</dimen>
     <dimen name="padding_fragment">10dp</dimen>
+    <dimen name="margin_top_edit_text">100dp</dimen>
+    <dimen name="margin_side_edit_text">50dp</dimen>
+    <dimen name="margin_item">4dp</dimen>
+    <dimen name="raduis_corner_image">10dp</dimen>
+    <dimen name="line_spacing_desc">6dp</dimen>
+    <dimen name="padding_item_desc">12dp</dimen>
 </resources>

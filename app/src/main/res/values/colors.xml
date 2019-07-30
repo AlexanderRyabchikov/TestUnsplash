@@ -5,4 +5,8 @@
     <color name="colorAccent">#E6FFFFFF</color>
 
     <color name="hint_text_color">#66000000</color>
+
+    <color name="dialog_bg">#424242</color>
+    <color name="dialog_caption">#FFFFFF</color>
+    <color name="dialog_text">#C6C6C6</color>
 </resources>

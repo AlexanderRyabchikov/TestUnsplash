@@ -8,14 +8,21 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.subscriptions.CompositeSubscription;
 
 public abstract class AbstractFragment extends Fragment {
 
+    protected CompositeSubscription compositeSubscription = new CompositeSubscription();
+
     @Nullable
     private Unbinder unbinder;
+
+    NavController navController;
 
 
     @Nullable
@@ -28,6 +35,8 @@ public abstract class AbstractFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
+
+        navController = Navigation.findNavController(view);
     }
 
     @Override
@@ -37,6 +46,12 @@ public abstract class AbstractFragment extends Fragment {
         if (unbinder != null) {
             unbinder.unbind();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        compositeSubscription.unsubscribe();
+        super.onDestroy();
     }
 
     @LayoutRes
