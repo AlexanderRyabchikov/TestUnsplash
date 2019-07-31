@@ -23,6 +23,7 @@ android {
         development {
             dimension "main"
             buildConfigField("String", "ServerUrl", '"https://api.unsplash.com/"')
+            buildConfigField("String", "UserAccessKey", '"b66058e774d4c6fb185f0aa0ec49eb4ededd1a04c34c595dc253b935a7ac30f8"')
         }
 
     }

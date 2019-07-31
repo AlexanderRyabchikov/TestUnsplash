@@ -1,6 +1,6 @@
 package com.unsplash.client.network.Api;
 
-
+import com.unsplash.client.BuildConfig;
 import com.unsplash.client.data.model.PhotoModel;
 import com.unsplash.client.network.response.ApiResponse;
 
@@ -10,11 +10,11 @@ import rx.Observable;
 
 public class Api {
 
-    public static Observable<List<PhotoModel>> getPhotos(String query) {
+    public static Observable<List<PhotoModel>> getPhotos(int page, String query) {
 
         return ApiFactory
                 .getApiPhotos()
-                .getPhotos(query)
+                .getPhotos(BuildConfig.UserAccessKey, page, query)
                 .flatMap(ApiResponse::handleError)
                 .map(ApiResponse::getData);
 

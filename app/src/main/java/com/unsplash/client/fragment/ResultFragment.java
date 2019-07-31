@@ -1,5 +1,6 @@
 package com.unsplash.client.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -55,7 +56,7 @@ public class ResultFragment extends AbstractFragment {
     private void loadData(String query) {
 
         compositeSubscription.add(Api
-                .getPhotos(query)
+                .getPhotos(1, query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(this::showLoading)
@@ -112,6 +113,7 @@ public class ResultFragment extends AbstractFragment {
                 .build();
     }
 
+    @SuppressLint("ResourceType")
     private void handleError(Throwable throwable){
 
         if (throwable instanceof ApiError) {
@@ -119,20 +121,19 @@ public class ResultFragment extends AbstractFragment {
 
             switch (apiError.getCode()) {
                 case 404:
-                    Toast.makeText(getContext(), R.string.dialog_server_is_not_available, Toast.LENGTH_LONG).show();
-                    getActivity().finish();
+                    showMessage(R.string.dialog_server_is_not_available);
                     return;
                 case 401:
-                    Toast.makeText(getContext(), R.string.dialog_not_authorized, Toast.LENGTH_LONG).show();
+                    showMessage(R.string.dialog_not_authorized);
                     return;
             }
 
             String message = apiError.getDescription();
-            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            showMessage(message);
         } else if (throwable instanceof UnknownHostException) {
-            Toast.makeText(getContext(), R.string.common_no_internet_connection, Toast.LENGTH_LONG).show();
+            showMessage(R.string.common_no_internet_connection);
         } else {
-            Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_LONG).show();
+            showMessage(throwable.getMessage());
         }
 
     }

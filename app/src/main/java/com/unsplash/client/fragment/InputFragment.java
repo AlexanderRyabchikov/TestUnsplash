@@ -1,11 +1,11 @@
 package com.unsplash.client.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -60,17 +60,26 @@ public class InputFragment extends AbstractFragment {
         }
     }
 
+    @SuppressLint("ResourceType")
     void onClickSearch(View view){
 
+        String searchText = editTextSearch.getText().toString();
+
+        if(searchText.isEmpty()) {
+            showMessage(R.string.text_empty_message);
+            return;
+        }
+
         Bundle bundle = new Bundle();
-        bundle.putCharSequence(KEY_DATA, editTextSearch.getText().toString());
+        bundle.putCharSequence(KEY_DATA, searchText);
 
         navController.navigate(R.id.action_inputFragment_to_resultFragment, bundle);
     }
 
+    @SuppressLint("ResourceType")
     private void showToast(){
 
-        Toast.makeText(getContext(), R.string.message_exit, Toast.LENGTH_LONG).show();
+        showMessage(R.string.message_exit);
 
     }
 

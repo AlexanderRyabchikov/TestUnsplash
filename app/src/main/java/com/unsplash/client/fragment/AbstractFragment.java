@@ -1,10 +1,13 @@
 package com.unsplash.client.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -56,4 +59,16 @@ public abstract class AbstractFragment extends Fragment {
 
     @LayoutRes
     protected abstract int getLayoutRes();
+
+
+    @SuppressLint("ResourceType")
+    void showMessage(@IdRes int resId) {
+
+        showMessage(getString(resId));
+
+    }
+
+    void showMessage(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
 }

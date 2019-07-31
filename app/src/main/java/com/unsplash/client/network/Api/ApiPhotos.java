@@ -12,5 +12,5 @@ import rx.Observable;
 public interface ApiPhotos {
 
     @GET("search/photos")
-    Observable<ApiResponse<List<PhotoModel>>> getPhotos(@Query("client_id") String clientId, @Query("page") Int page ,@Query("query") String query);
+    Observable<ApiResponse<List<PhotoModel>>> getPhotos(@Query("client_id") String clientId, @Query("page") int page , @Query("query") String query);
 }

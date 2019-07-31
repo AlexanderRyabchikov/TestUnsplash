@@ -12,5 +12,7 @@
     <string name="dialog_not_authorized">Для этого действия необходима авторизация</string>
     <string name="dialog_server_is_not_available">Сервер недоступен</string>
 
+
+    <string name="text_empty_message">Поле поиска должно быть заполнено</string>
     <string name="common_no_internet_connection">Отсутствует соединение с интернетом</string>
 </resources>
