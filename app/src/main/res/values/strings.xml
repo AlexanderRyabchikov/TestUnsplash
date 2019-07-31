@@ -15,4 +15,5 @@
 
     <string name="text_empty_message">Поле поиска должно быть заполнено</string>
     <string name="common_no_internet_connection">Отсутствует соединение с интернетом</string>
+    <string name="not_found_message">Ничего не найдено, попробуйте снова</string>
 </resources>

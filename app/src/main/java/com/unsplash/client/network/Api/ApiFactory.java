@@ -4,8 +4,11 @@ package com.unsplash.client.network.Api;
 import androidx.annotation.NonNull;
 
 import com.unsplash.client.BuildConfig;
+import com.unsplash.client.network.Ssl.TLSSocketFactory;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -26,24 +29,37 @@ public class ApiFactory {
     private static final String API_ENDPOINT = BuildConfig.ServerUrl;
 
     public static ApiPhotos getApiPhotos() {
-        return getRetrofit().create(ApiPhotos.class);
+        try {
+            return getRetrofit().create(ApiPhotos.class);
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    private static final OkHttpClient CLIENT = new OkHttpClient.Builder()
-            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MINUTES)
-            .writeTimeout(WRITE_TIMEOUT, TimeUnit.MINUTES)
-            .readTimeout(TIMEOUT, TimeUnit.MINUTES)
-            .addInterceptor(LOGGING_INTERCEPTOR)
-            .addInterceptor(ApiFactory::onOnIntercept)
-            .build();
+
+    private static OkHttpClient initOkHttpClient() throws NoSuchAlgorithmException, KeyManagementException {
+
+        return
+        new OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MINUTES)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.MINUTES)
+                .readTimeout(TIMEOUT, TimeUnit.MINUTES)
+                .addInterceptor(LOGGING_INTERCEPTOR)
+                .sslSocketFactory(new TLSSocketFactory())
+                .addInterceptor(ApiFactory::onOnIntercept)
+                .build();
+    }
 
     @NonNull
-    private static Retrofit getRetrofit() {
+    private static Retrofit getRetrofit() throws KeyManagementException, NoSuchAlgorithmException {
         return new Retrofit.Builder()
                 .baseUrl(API_ENDPOINT)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(CLIENT)
+                .client(initOkHttpClient())
                 .build();
     }
 

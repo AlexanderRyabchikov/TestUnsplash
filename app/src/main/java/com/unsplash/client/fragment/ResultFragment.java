@@ -53,6 +53,7 @@ public class ResultFragment extends AbstractFragment {
         loadData(getArguments().getString(InputFragment.KEY_DATA));
     }
 
+    @SuppressLint("ResourceType")
     private void loadData(String query) {
 
         compositeSubscription.add(Api
@@ -61,7 +62,15 @@ public class ResultFragment extends AbstractFragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(this::showLoading)
                 .doOnEach(notification -> hideLoading())
-                .subscribe(photoModels -> adapter.updateData(photoModels), this::handleError));
+                .subscribe(photoModels -> {
+
+                    if(photoModels.isEmpty()){
+                        showMessage(R.string.not_found_message);
+                        onClickBackButton(null);
+                    }
+
+                    adapter.updateData(photoModels);
+                }, this::handleError));
 
     }
 
