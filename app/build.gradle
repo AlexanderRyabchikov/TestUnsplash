@@ -4,6 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.unsplash.client"
+
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
@@ -24,6 +25,12 @@ android {
             dimension "main"
             buildConfigField("String", "ServerUrl", '"https://api.unsplash.com/"')
             buildConfigField("String", "UserAccessKey", '"b66058e774d4c6fb185f0aa0ec49eb4ededd1a04c34c595dc253b935a7ac30f8"')
+
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "UnsplashApp.apk"
+                }
+            }
         }
 
     }
